@@ -1,0 +1,21 @@
+owncloud:
+  image: dastrasmue/rpi-owncloud:9.0.0
+  ports:
+    - "80:80"
+    - "443:443"
+  links:
+    - db:mysql
+  volumes:
+    - ./data:/srv/http/owncloud/data
+    - ./config:/var/www/owncloud/config 
+    - ./trusteddomainhelper.php:/var/www/owncloud/lib/private/security/trusteddomainhelper.php
+  environment:
+    OWNCLOUD_SERVERNAME: username.no-ip.org
+db:
+  image: schoeffm/rpi-owncloud-mysql
+  expose:
+    - "3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: mypassword
+    OWNCLOUD_DB_USER: owncloud
+    OWNCLOUD_DB_PASSWORD: mycloud
