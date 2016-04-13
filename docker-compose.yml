@@ -1,5 +1,6 @@
-owncloud:
+server:
   image: dastrasmue/rpi-owncloud:9.0.0
+  restart: unless-stopped
   ports:
     - "80:80"
     - "443:443"
@@ -12,7 +13,8 @@ owncloud:
   environment:
     OWNCLOUD_SERVERNAME: username.no-ip.org
 db:
-  image: schoeffm/rpi-owncloud-mysql
+  image: dastrasmue/rpi-owncloud-mysql:v1
+  restart: unless-stopped
   expose:
     - "3306"
   environment:
